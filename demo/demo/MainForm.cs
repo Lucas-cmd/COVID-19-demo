@@ -9,25 +9,29 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SuperMap.UI;
 using SuperMap.Data;
+using SuperMap.Mapping;
+using System.Data.SqlClient;
 
 namespace demo
 {
     public partial class MainForm : Form
     {
         SceneControl sceneControl = null;
-        public MainForm()
+        
+              public MainForm()
         {
             InitializeComponent();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            //初始化workspaceControl
+            //初始化workspaceControl和layersTree
             this.workspaceControl.WorkspaceTree.Workspace = new Workspace();
+            this.layersTree.Map = mapControl.Map;
 
             // 右键菜单
             // Right-click menu
-            this.workspaceControl.WorkspaceTree.NodeContextMenuStrips[WorkspaceTreeNodeDataType.Dataset] = contextMenuStripDataset;
+            this.workspaceControl.WorkspaceTree.NodeContextMenuStrips[WorkspaceTreeNodeDataType.Datasources] = contextMenuStripDatasources;
             this.workspaceControl.WorkspaceTree.NodeContextMenuStrips[WorkspaceTreeNodeDataType.Workspace] = contextMenuStripWorkspace;
             this.workspaceControl.WorkspaceTree.NodeContextMenuStrips[WorkspaceTreeNodeDataType.MapName] = contextMenuStripMap;
 
@@ -36,6 +40,9 @@ namespace demo
 
             // 开启全屏反走样
             // Open full-screen anti-aliasing
+
+            //打开数据库，并加载到dataGridView中
+            sqlOpen();
 
         }
 
@@ -50,7 +57,6 @@ namespace demo
                 workspace.Close();
                 mapControl.Map.Close();
                 mapControl.Map.Refresh();
-                //mapControl.Map.Refresh();
                 //定义打开工作空间文件名
                 String fileName = openFileDialog.FileName;
                 //打开工作空间文件
@@ -58,7 +64,6 @@ namespace demo
                 //打开并绑定工作空间
                 workspace.Open(connectionInfo);
                 this.workspaceControl.WorkspaceTree.Workspace = workspace;
-                //this.layersControl.LayersTree.Map = mapControl.Map;
             }
         }
 
@@ -155,6 +160,48 @@ namespace demo
                         break;
                     }
             }
+        }
+
+
+        //打开数据库，并加载到dataGridView中
+        public void sqlOpen()
+        {
+            string str = string.Format("select TOP 150 [SmID],[Capital],[Country], [Country_en],[Country_1],[Country_en_1],[February],[March],[April], [May] ,[June],[July] ,[August],[September],[October], [November],[December],[total] from SMDTV_27 order by  [total] desc");
+            string coonString = "Data Source=.;Initial Catalog=demo;Integrated Security=True";
+            SqlConnection con = new SqlConnection(coonString);
+            con.Open();
+            SqlDataAdapter data = new SqlDataAdapter(str, coonString);
+            DataSet ds = new DataSet();
+            data.Fill(ds);
+            con.Close();
+            dataGridView.DataSource = ds.Tables[0];
+        }
+
+        private void DotdensitymapToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PassParameter.passMapControl = mapControl;
+            PassParameter.passWorkspace = workspace;
+            FrmDotDensityMap frmDotDensityMap = new FrmDotDensityMap();
+            frmDotDensityMap.ShowDialog();
+            mapControl = PassParameter.passMapControl;
+        }
+
+        private void GraphmapToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PassParameter.passMapControl = mapControl;
+            PassParameter.passWorkspace = workspace;
+            FrmGraphMap frmGraphMap = new FrmGraphMap();
+            frmGraphMap.ShowDialog();
+            mapControl = PassParameter.passMapControl;
+        }
+
+        private void RangesmapToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PassParameter.passMapControl = mapControl;
+            PassParameter.passWorkspace = workspace;
+            FrmRangesMap frmRangeMap = new FrmRangesMap();
+            frmRangeMap.ShowDialog();
+            mapControl = PassParameter.passMapControl;
         }
 
 

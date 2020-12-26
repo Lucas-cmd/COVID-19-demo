@@ -23,3 +23,6 @@ E:\大作业\demo\demo\obj\Debug\demo.Properties.Resources.resources
 E:\大作业\demo\demo\obj\Debug\demo.csproj.GenerateResource.Cache
 E:\大作业\demo\demo\obj\Debug\demo.exe
 E:\大作业\demo\demo\obj\Debug\demo.pdb
+E:\大作业\demo\demo\obj\Debug\demo.FrmDotDensityMap.resources
+E:\大作业\demo\demo\obj\Debug\demo.FrmGraphMap.resources
+E:\大作业\demo\demo\obj\Debug\demo.FrmRangesMap.resources

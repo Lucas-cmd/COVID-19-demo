@@ -57,14 +57,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FrmDotDensityMap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmDotDensityMap.Designer.cs">
+      <DependentUpon>FrmDotDensityMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmGraphMap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGraphMap.Designer.cs">
+      <DependentUpon>FrmGraphMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmRangesMap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmRangesMap.Designer.cs">
+      <DependentUpon>FrmRangesMap.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PassParameter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmDotDensityMap.resx">
+      <DependentUpon>FrmDotDensityMap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGraphMap.resx">
+      <DependentUpon>FrmGraphMap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmRangesMap.resx">
+      <DependentUpon>FrmRangesMap.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
